@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Login;
+use App\Usuario;
 use Illuminate\Http\Request;
+use App\Http\Requests;
 
-class LoginController extends Controller
+use DB;
+
+class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +17,8 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('index/login');
+        
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -25,7 +27,7 @@ class LoginController extends Controller
      */
     public function create()
     {
-        //
+        return view('usuario.create');
     }
 
     /**
@@ -36,16 +38,31 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $usuario = new Usuario;
+        $usuario->nombre    = $request->get('nombre');
+        $usuario->apellido  = $request->get('apellido');
+        $usuario->telefono  = $request->get('telefono');
+        $usuario->password  = bcrypt($request->get('password'));
+        
+        if($usuario->save())
+        {
+            return back()->with('msj', 'Datos Guardados');
+        }
+        else
+        if(!$usuario->save())
+        {
+            return back()->with('error', 'Datos No Guardados');
+        }
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Login  $login
+     * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function show(Login $login)
+    public function show(Usuario $usuario)
     {
         //
     }
@@ -53,10 +70,10 @@ class LoginController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Login  $login
+     * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function edit(Login $login)
+    public function edit(Usuario $usuario)
     {
         //
     }
@@ -65,10 +82,10 @@ class LoginController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Login  $login
+     * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Login $login)
+    public function update(Request $request, Usuario $usuario)
     {
         //
     }
@@ -76,10 +93,10 @@ class LoginController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Login  $login
+     * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Login $login)
+    public function destroy(Usuario $usuario)
     {
         //
     }
