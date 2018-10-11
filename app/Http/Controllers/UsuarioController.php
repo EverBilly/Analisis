@@ -17,7 +17,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        
+        $usuarios = Usuario::all();
+        return view('usuario.index', compact('usuarios'));
     }
 
     /**
@@ -38,20 +39,31 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        $usuario = new Usuario;
-        $usuario->nombre    = $request->get('nombre');
-        $usuario->apellido  = $request->get('apellido');
-        $usuario->telefono  = $request->get('telefono');
-        $usuario->password  = bcrypt($request->get('password'));
-        
-        if($usuario->save())
+        try
         {
-            return back()->with('msj', 'Datos Guardados');
+            $usuario = new Usuario;
+            $usuario->nombre    = $request->get('nombre');
+            $usuario->apellido  = $request->get('apellido');
+            $usuario->telefono  = $request->get('telefono');
+            $usuario->password  = bcrypt($request->get('password'));
+            
+            if($usuario->save())
+            {
+                return back()->with('msj', 'Datos Guardados');
+            }
+            else
+            if(!$usuario->save())
+            {
+                return back()->with('error', 'Datos No Guardados');
+            }
         }
-        else
-        if(!$usuario->save())
+        catch(Exception $e)
         {
-            return back()->with('error', 'Datos No Guardados');
+            $returnData  = array(
+                'status'    => 500,
+                'message'   => $e->getMessage()
+            );
+            return Response($returnData, 500);
         }
 
     }

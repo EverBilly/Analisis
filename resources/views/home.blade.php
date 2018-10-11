@@ -7,7 +7,7 @@
       <div class="col-md-12">
         <h3>Menu Principal</h3>
         <ul class="nav nav-pills nav-stacked">
-          <li><a href="{{ url('create') }}"><span class="glyphicon glyphicon-user"></span> Usuarios</a></li>
+          <li><a href="{{ url('index') }}"><span class="glyphicon glyphicon-user"></span> Usuarios</a></li>
           <li><a href="{{ url('')}}"><span class="glyphicon glyphicon-folder-open"></span> Productos</a></li>
           <li><a href="#">Section</a></li>
           <li><a href="#">Section</a></li>
