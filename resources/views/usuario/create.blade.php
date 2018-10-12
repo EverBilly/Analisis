@@ -1,7 +1,30 @@
 @extends('index.login')
 @section('content')
-	{!!Form::submit('Crear Usuario', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#registrar'])!!}
 
+<div class="container">
+		      	<h3>Listado de Usuarios</h3>
+	<table class="table table-hover tabla-usuarios">
+	      <thead  class="bg-primary">
+	        <th>Nombre</th>
+	        <th>Apellido</th>
+	        <th>Telefono</th>
+	        <th>Opciones</th>
+	      </thead>
+	      @foreach($usuarios as $usuario)
+	      <tbody>
+	        <td>{{ $usuario->nombre }}</td>
+	        <td>{{ $usuario->apellido }}</td>
+	        <td>{{ $usuario->telefono }}</td>
+	        <td>
+	        	{!!link_to_route('usuario.edit', $title = 'Editar', $parameters = Crypt::encrypt($usuario->id), $attributes = ['class' => 'btn btn-warning'])!!}
+	        </td>
+	      </tbody>
+	      @endforeach
+	    </table>
+	    <br>
+	<!--Boton Para Abrir la modal de crear Usuarios-->
+	{!!Form::submit('Crear Usuario', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#registrar'])!!}
+	<!--Inicio de la Modal para Crear Usuarios-->
 	<div class="modal fade" id="registrar" tabindex="-1" role="dialog" aria-labelledby="inicio" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -39,17 +62,23 @@
 			</div>
 		</div>
 	</div>
-					@if(session()->has('msj'))
-					<div class="alert alert-success alert-dismissable">
-					  <button type="button" class="close" data-dismiss="alert">&times;</button>
-					  <strong>{{session('msj')}}</strong>
-					</div>
-					@else
-					@if(session()->has('error'))
-						<div class="alert alert-danger alert-dismissable">
-					  <button type="button" class="close" data-dismiss="alert">&times;</button>
-					  <strong>{{session('error')}}</strong>
-					</div>	
-					@endif
-					@endif
+  </div>
+  <!--Fin de la modal para crear Ususarios-->
+    @if(session()->has('msj'))
+		<div class="container">
+      		<div class="alert alert-success alert-dismissable">
+			  <button type="button" class="close" data-dismiss="alert">&times;</button>
+      			<strong>{{session('msj')}}</strong>					
+      		</div>
+    	</div>
+	@else
+	@if(session()->has('error'))
+		<div class="container">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>{{session('error')}}</strong>
+				</div>	
+		</div>
+	@endif
+	@endif
 @endsection

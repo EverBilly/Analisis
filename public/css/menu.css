@@ -31,3 +31,16 @@ a {
 	position: relative;
 	margin-bottom: 0px;
 }
+.tabla-usuarios
+{
+  border: solid #DCDCDC;
+  margin: auto;
+}
+td
+{
+  border: solid #DCDCDC;
+}
+th
+{
+  border: solid #DCDCDC;
+}

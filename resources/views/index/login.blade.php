@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {!! Html::style('css/bootstrap.min.css') !!}
     {!! Html::style('css/menu.css') !!}
-
+    {!! Html::style('css/font-awesome.min.css') !!}
     <title>Inicio</title>
 </head>
 <body>

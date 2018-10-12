@@ -19,6 +19,9 @@ class CreateUsuariosTable extends Migration
             $table->text('apellido')->default(null);
             $table->text('telefono')->default(null);
             $table->text('password')->bcrypt()->default(null);
+            $table->tinyInteger('estado')->nullable()->default(1);
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Usuario;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Crypt;
+use Laracast\Flash\Flash;
 use DB;
 
 class UsuarioController extends Controller
@@ -17,8 +19,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuario::all();
-        return view('usuario.index', compact('usuarios'));
+        $results = DB::select('select nombre from usuarios where nombre = :nombre', ['nombre' => "Juan Luis"]);
+        return view('usuario.index', compact('results'));
     }
 
     /**
@@ -28,7 +30,8 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        return view('usuario.create');
+        $usuarios = Usuario::all();
+        return view('usuario.create', compact('usuarios'));
     }
 
     /**
@@ -41,18 +44,18 @@ class UsuarioController extends Controller
     {
         try
         {
-            $usuario = new Usuario;
-            $usuario->nombre    = $request->get('nombre');
-            $usuario->apellido  = $request->get('apellido');
-            $usuario->telefono  = $request->get('telefono');
-            $usuario->password  = bcrypt($request->get('password'));
+            $newObject = new Usuario;
+            $newObject->nombre    = $request->get('nombre');
+            $newObject->apellido  = $request->get('apellido');
+            $newObject->telefono  = $request->get('telefono');
+            $newObject->password  = $request->get('password');
             
-            if($usuario->save())
+            if($newObject->save())
             {
-                return back()->with('msj', 'Datos Guardados');
+                return back()->with('msj', 'Usuario Registrado');
             }
             else
-            if(!$usuario->save())
+            if(!$newObject->save())
             {
                 return back()->with('error', 'Datos No Guardados');
             }
@@ -85,9 +88,11 @@ class UsuarioController extends Controller
      * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function edit(Usuario $usuario)
+    public function edit($id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $usuario = Usuario::find($id);
+        return view('usuario.edit', ['usuario' => $usuario]);
     }
 
     /**
@@ -97,9 +102,32 @@ class UsuarioController extends Controller
      * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usuario $usuario)
+    public function update($id, Request $request)
     {
-        //
+        try
+        {
+            $objectUpdate = Usuario::find($id);
+            $objectUpdate->nombre    = $request->get('nombre', $objectUpdate->nombre);
+            $objectUpdate->apellido  = $request->get('apellido', $objectUpdate->apellido);
+            $objectUpdate->telefono  = $request->get('telefono', $objectUpdate->telefono);
+            if($objectUpdate->save())
+            {
+                return back()->with('msj', 'Datos Editados');
+            }
+            else
+            if(!$objectUpdate->save())
+            {
+                return back()->with('error', 'Error al Editar');
+            }
+        }
+        catch(Exception $e)
+        {
+            $returnData  = array(
+                'status'    => 500,
+                'message'   => $e->getMessage()
+            );
+            return Response($returnData, 500);
+        }
     }
 
     /**
@@ -108,8 +136,11 @@ class UsuarioController extends Controller
      * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Usuario $usuario)
+    public function destroy($id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $usuario = Usuario::destroy($id);
+        return redirect()->route('usuario.create');
+        return back()->with('msj', 'Eliminado Exitosamente');
     }
 }
