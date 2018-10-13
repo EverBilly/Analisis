@@ -6,23 +6,18 @@
 	<table class="table table-hover tabla-usuarios">
 	      <thead  class="bg-primary">
 	        <th>Nombre</th>
-	        <th>Apellido</th>
-	        <th>Telefono</th>
-	        <th>Opciones</th>
 	      </thead>
-	      @foreach($usuarios as $usuario)
+	      @foreach($roles as $rol)
 	      <tbody>
-	        <td>{{ $usuario->nombre }}</td>
-	        <td>{{ $usuario->apellido }}</td>
-	        <td>{{ $usuario->telefono }}</td>
+	        <td>{{ $rol->nombre }}</td>
 	        <td>
-	        	{!!link_to_route('usuario.edit', $title = 'Editar', $parameters = Crypt::encrypt($usuario->id), $attributes = ['class' => 'btn btn-warning'])!!}
+	        	{!!link_to_route('rol.edit', $title = 'Editar', $parameters = Crypt::encrypt($rol->id), $attributes = ['class' => 'btn btn-warning'])!!}
 	        </td>
 	      </tbody>
 	      @endforeach
 	    </table>
 	    <br>
-	    {!!$usuarios->render()!!}
+	    {!!$roles->render()!!}
 	<!--Boton Para Abrir la modal de crear Usuarios-->
 	{!!Form::submit('Crear Usuario', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#registrar'])!!}
 	<!--Inicio de la Modal para Crear Usuarios-->
@@ -36,22 +31,10 @@
 					<h4 class="modal-title" id="inicio">Registro de Usuarios</h4>
 				</div>
 				<div class="modal-body">
-						{!! Form::open(array('url'=>'usuario', 'method'=>'POST')) !!}
+						{!! Form::open(array('url'=>'rol', 'method'=>'POST')) !!}
 							<div class="form-group">
 								{!!Form::label('Nombre')!!}
 								{!!Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Ingrese El Nombre', 'required'])!!}
-							</div>
-							<div class="form-group">
-								{!!Form::label('Apellido')!!}
-								{!!Form::text('apellido', null, ['class' => 'form-control', 'placeholder' => 'Ingrese El Apellido', 'required'])!!}
-							</div>
-							<div class="form-group">
-								{!!Form::label('Telefono')!!}
-								{!!Form::text('telefono', null, ['class' => 'form-control', 'placeholder' => 'Ingrese El Telefono', 'required'])!!}
-							</div>
-							<div class="form-group">
-								{!!Form::label('Password')!!}
-								{!!Form::password('password', ['class' => 'form-control', 'placeholder' => 'Ingrese El Password', 'required'])!!}
 							</div>
 							<div class="modal-footer">
 							{!!Form::submit('Registrar', ['class' => 'btn btn-primary'])!!}

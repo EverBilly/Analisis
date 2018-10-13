@@ -21,6 +21,10 @@ class CreateUsuariosTable extends Migration
             $table->text('password')->bcrypt()->default(null);
             $table->tinyInteger('estado')->nullable()->default(1);
 
+            $table->integer('rol')->unsigned()->nullable()->default(null);
+            $table->foreign('rol')->references('id')->on('roles')->onDelete('cascade');
+
+
             $table->softDeletes();
             $table->timestamps();
         });

@@ -19,8 +19,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $results = DB::select('select nombre from usuarios where nombre = :nombre', ['nombre' => "Juan Luis"]);
-        return view('usuario.index', compact('results'));
+        // $results = DB::select('select nombre from usuarios where deleted_at = :deleted_at', ['deleted_at' => ""]);
+        // return view('usuario.index', compact('results'));
     }
 
     /**
@@ -30,7 +30,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        $usuarios = Usuario::all();
+        $usuarios = Usuario::paginate(5);
         return view('usuario.create', compact('usuarios'));
     }
 

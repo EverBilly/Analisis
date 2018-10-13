@@ -7,11 +7,11 @@
       <div class="col-md-12">
         <h3>Menu Principal</h3>
         <ul class="nav nav-pills nav-stacked">
-          <li><a href="{{ url('create') }}"><span class="glyphicon glyphicon-user"></span> Usuarios</a></li>
-          <li><a href="{{ url('') }}"><span class="glyphicon glyphicon-folder-open"></span> Productos</a></li>
-          <li><a href="{{ url('') }}"><span class="glyphicon glyphicon-file"></span> Inventario</a></li>
+          <li><a href="{{ url('usuario/create') }}"><span class="fa fa-user"></span> Usuarios</a></li>
+          <li><a href="{{ url('producto/create') }}"><span class="fa fa-folder"></span> Productos</a></li>
+          <li><a href="{{ url('') }}"><span class="fa fa-files-o"></span> Inventario</a></li>
           <li><a href="{{ url('') }}"><span class="fa fa-truck"></span> Camiones</a></li>
-          <li><a href="#">Section</a></li>
+          <li><a href="{{ url('rol/create') }}"><span class="fa fa-user-circle-o"></span> Roles</a></li>
           <li><a href="#">Section</a></li>
           <li><a href="#">Section</a></li>
           <li><a href="#">Section</a></li>

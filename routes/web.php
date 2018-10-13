@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::resource('usuario', 'UsuarioController');
-// Route::get('index', 'UsuarioController@index');
-Route::get('create', 'UsuarioController@create');
-Route::get('edit/{id}', 'UsuarioController@update');
-Route::get('destroy/{id}', 'UsuarioController@destroy');
+Route::resource('producto', 'ProductoController');
+Route::resource('rol', 'RolController');
+
+Route::resource('log', 'LogController');

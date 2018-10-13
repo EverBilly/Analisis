@@ -1,6 +1,6 @@
 @extends('index.login')
 @section('content')
-	<!--Inicio de la Modal para Editar Usuarios-->
+	<!--Formulario para Editar Usuarios-->
 	<div class="container">
 		{!! Form::model($usuario, ['route' => ['usuario.update', $usuario -> id], 'method' => 'PUT']) !!}
 			<div class="form-group">
@@ -21,29 +21,19 @@
 			</div>
 		{!! Form::close() !!}
 	</div>
-  <!--Fin de la modal para Editar Ususarios-->
+  <!--Fin de formulario para Editar Ususarios-->
 
+  <!--Boton para eliminar Usuarios-->
   	<div class="container">
 		{!! Form::open(['route' => ['usuario.destroy', Crypt::encrypt($usuario -> id)], 'method' => 'DELETE']) !!}
 			{!!Form::submit('Eliminar', ['class' => 'btn btn-danger'])!!}
 		{!! Form::close() !!}
 	</div>
+	<!--Fin Boton para eliminar Usuarios-->
 
-    @if(session()->has('msj'))
-		<div class="container">
-      		<div class="alert alert-success alert-dismissable">
-			  <button type="button" class="close" data-dismiss="alert">&times;</button>
-      			<strong>{{session('msj')}}</strong>					
-      		</div>
-    	</div>
-	@else
-	@if(session()->has('error'))
-		<div class="container">
-			<div class="alert alert-danger alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>{{session('error')}}</strong>
-				</div>	
-		</div>
-	@endif
-	@endif
+	<!-- Div que muestra las alertas-->
+	<div class="container">
+		@include('alerts.alertas')
+	</div>
+	<!-- Fin Div que muestra las alertas-->
 @endsection
