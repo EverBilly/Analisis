@@ -20,8 +20,8 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::resource('rol', 'RolController');
 Route::resource('usuario', 'UsuarioController');
 Route::resource('producto', 'ProductoController');
-Route::resource('rol', 'RolController');
 
 Route::resource('log', 'LogController');

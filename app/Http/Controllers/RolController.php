@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Rol;
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Crypt;
+use Laracast\Flash\Flash;
+use DB;
 
 class RolController extends Controller
 {
@@ -14,8 +19,8 @@ class RolController extends Controller
      */
     public function index()
     {
-        $roles = Rol::all();
-        return view('rol.create');
+        // $roles = Rol::all();
+        // return view('rol.create');
     }
 
     /**
@@ -37,7 +42,29 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try 
+        {
+        $newObject = new Rol;
+        $newObject->nombre = $request->get('nombre');
+        if($newObject->save())
+        {
+            return back()->with('msj', 'Rol Registrado');
+        }
+        else
+        if (!$newObject->save())
+        {
+            return back()->with('error', 'Datos no Guardados');    
+        }
+    }
+    catch(Exception $e)
+    {
+        $returnData = array(
+            'status'    => 500,
+            'message'   => $e->getMessage()
+        );
+        return Response($returnData, 500);
+    }
+
     }
 
     /**
@@ -57,9 +84,11 @@ class RolController extends Controller
      * @param  \App\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rol $rol)
+    public function edit($id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $rol = Rol::find($id);
+        return view('rol.edit', ['rol' => $rol]);
     }
 
     /**
@@ -69,9 +98,30 @@ class RolController extends Controller
      * @param  \App\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rol $rol)
+    public function update($id, Request $request)
     {
-        //
+        try
+        {
+            $objectUpdate = Rol::find($id);
+            $objectUpdate->nombre    = $request->get('nombre', $objectUpdate->nombre);
+            if($objectUpdate->save())
+            {
+                return back()->with('msj', 'Datos Editados');
+            }
+            else
+            if(!$objectUpdate->save())
+            {
+                return back()->with('error', 'Error al Editar');
+            }
+        }
+        catch(Exception $e)
+        {
+            $returnData  = array(
+                'status'    => 500,
+                'message'   => $e->getMessage()
+            );
+            return Response($returnData, 500);
+        }
     }
 
     /**

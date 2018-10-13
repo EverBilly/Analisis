@@ -2,10 +2,11 @@
 @section('content')
 
 <div class="container">
-		      	<h3>Listado de Usuarios</h3>
+		      	<h3>Listado de Roles</h3>
 	<table class="table table-hover tabla-usuarios">
 	      <thead  class="bg-primary">
 	        <th>Nombre</th>
+	        <th>Opciones</th>
 	      </thead>
 	      @foreach($roles as $rol)
 	      <tbody>
@@ -19,7 +20,7 @@
 	    <br>
 	    {!!$roles->render()!!}
 	<!--Boton Para Abrir la modal de crear Usuarios-->
-	{!!Form::submit('Crear Usuario', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#registrar'])!!}
+	{!!Form::submit('Crear Rol', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#registrar'])!!}
 	<!--Inicio de la Modal para Crear Usuarios-->
 	<div class="modal fade" id="registrar" tabindex="-1" role="dialog" aria-labelledby="inicio" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -28,7 +29,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="inicio">Registro de Usuarios</h4>
+					<h4 class="modal-title" id="inicio">Registro de Roles</h4>
 				</div>
 				<div class="modal-body">
 						{!! Form::open(array('url'=>'rol', 'method'=>'POST')) !!}

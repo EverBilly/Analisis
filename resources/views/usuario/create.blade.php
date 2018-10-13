@@ -8,6 +8,7 @@
 	        <th>Nombre</th>
 	        <th>Apellido</th>
 	        <th>Telefono</th>
+	        <th>Rol</th>
 	        <th>Opciones</th>
 	      </thead>
 	      @foreach($usuarios as $usuario)
@@ -15,6 +16,7 @@
 	        <td>{{ $usuario->nombre }}</td>
 	        <td>{{ $usuario->apellido }}</td>
 	        <td>{{ $usuario->telefono }}</td>
+	        <td>{{ $usuario->rol }}</td>
 	        <td>
 	        	{!!link_to_route('usuario.edit', $title = 'Editar', $parameters = Crypt::encrypt($usuario->id), $attributes = ['class' => 'btn btn-warning'])!!}
 	        </td>
@@ -52,6 +54,10 @@
 							<div class="form-group">
 								{!!Form::label('Password')!!}
 								{!!Form::password('password', ['class' => 'form-control', 'placeholder' => 'Ingrese El Password', 'required'])!!}
+							</div>
+							<div class="form-group">
+								{!!Form::label('Rol')!!}
+								{!!Form::select('size',['L' => 'Large'], null, ['placeholder' => 'Seleccione una opcion', 'class' => 'form-control'])!!}
 							</div>
 							<div class="modal-footer">
 							{!!Form::submit('Registrar', ['class' => 'btn btn-primary'])!!}

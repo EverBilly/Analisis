@@ -32,6 +32,7 @@
                         <div class="panel-body">
                             @if (session('status'))
                                 <div class="alert alert-success">
+                                  @include('usuario.index')
                                     {{ session('status') }}
                                 </div>
                             @endif
