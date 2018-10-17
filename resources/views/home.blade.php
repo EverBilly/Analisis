@@ -1,18 +1,21 @@
 @extends('index.login')
 
 @section('content')
-
+      <div class="container">
+        @include('alerts.alertas')
+      </div>
 <div class="row-offcanvas row-offcanvas-left">
   <div id="sidebar" class="sidebar-offcanvas">
       <div class="col-md-12">
         <h3>Menu Principal</h3>
         <ul class="nav nav-pills nav-stacked">
+        @if(Auth::user()->id == 1)
           <li><a href="{{ url('usuario/create') }}"><span class="fa fa-user"></span> Usuarios</a></li>
           <li><a href="{{ url('producto/create') }}"><span class="fa fa-folder"></span> Productos</a></li>
           <li><a href="{{ url('') }}"><span class="fa fa-files-o"></span> Inventario</a></li>
           <li><a href="{{ url('') }}"><span class="fa fa-truck"></span> Camiones</a></li>
           <li><a href="{{ url('rol/create') }}"><span class="fa fa-user-circle-o"></span> Roles</a></li>
-          <li><a href="#">Section</a></li>
+          @endif
           <li><a href="#">Section</a></li>
           <li><a href="#">Section</a></li>
           <li><a href="#">Section</a></li>

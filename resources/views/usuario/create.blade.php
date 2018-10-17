@@ -24,9 +24,10 @@
 	      @endforeach
 	    </table>
 	    <br>
-	    {!!$usuarios->render()!!}
 	<!--Boton Para Abrir la modal de crear Usuarios-->
 	{!!Form::submit('Crear Usuario', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#registrar'])!!}
+	<br>
+	{!!$usuarios->render()!!}
 	<!--Inicio de la Modal para Crear Usuarios-->
 	<div class="modal fade" id="registrar" tabindex="-1" role="dialog" aria-labelledby="inicio" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -57,7 +58,11 @@
 							</div>
 							<div class="form-group">
 								{!!Form::label('Rol')!!}
-								{!!Form::select('size',['L' => 'Large'], null, ['placeholder' => 'Seleccione una opcion', 'class' => 'form-control'])!!}
+								<select name="rol" class="form-control">
+								@foreach($roles as $rol)
+									<option value="{{$rol->id}}">{{$rol->nombre}}</option>
+								@endforeach
+							</select>
 							</div>
 							<div class="modal-footer">
 							{!!Form::submit('Registrar', ['class' => 'btn btn-primary'])!!}

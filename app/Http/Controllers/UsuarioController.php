@@ -3,24 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Usuario;
+use App\Rol;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use Laracast\Flash\Flash;
+use Illuminate\Routing\Route;
 use DB;
 
 class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin',['only' => ['create', 'edit', 'destroy']]);
+    }
+
     public function index()
     {
         // $results = DB::select('select nombre from usuarios where deleted_at = :deleted_at', ['deleted_at' => ""]);
         // return view('usuario.index', compact('results'));
+        // return Response::json(Usuarios::with('usuarios','roles')->get(), 200);
     }
 
     /**
@@ -31,7 +35,10 @@ class UsuarioController extends Controller
     public function create()
     {
         $usuarios = Usuario::paginate(5);
-        return view('usuario.create', compact('usuarios'));
+        $roles = DB::select("Select id, nombre from roles");
+        return view('usuario.create')
+        ->with(compact('usuarios'))
+        ->with(compact('roles'));
     }
 
     /**
@@ -49,6 +56,7 @@ class UsuarioController extends Controller
             $newObject->apellido  = $request->get('apellido');
             $newObject->telefono  = $request->get('telefono');
             $newObject->password  = $request->get('password');
+            $newObject->rol       = $request->get('rol');
             
             if($newObject->save())
             {
@@ -110,6 +118,8 @@ class UsuarioController extends Controller
             $objectUpdate->nombre    = $request->get('nombre', $objectUpdate->nombre);
             $objectUpdate->apellido  = $request->get('apellido', $objectUpdate->apellido);
             $objectUpdate->telefono  = $request->get('telefono', $objectUpdate->telefono);
+            $objectUpdate->password  = $request->get('password', $objectUpdate->password);
+            $objectUpdate->rol       = $request->get('rol', $objectUpdate->rol);
             if($objectUpdate->save())
             {
                 return back()->with('msj', 'Datos Editados');

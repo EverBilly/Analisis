@@ -12,11 +12,20 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => '/']);
+    }
+
     public function index()
     {
         return view('index/login');
     }
 
+    public function loguearse()
+    {
+        return view('layouts/app');
+    }
 
     /**
      * Show the form for creating a new resource.
