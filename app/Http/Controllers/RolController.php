@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
-use Laracast\Flash\Flash;
 use DB;
 
 class RolController extends Controller
@@ -130,8 +129,11 @@ class RolController extends Controller
      * @param  \App\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rol $rol)
+    public function destroy($id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $rol = Rol::destroy($id);
+        return redirect()->route('rol.create');
+        return back()->with('msj', 'Eliminado Exitosamente');
     }
 }

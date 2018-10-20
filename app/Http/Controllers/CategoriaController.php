@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Categoria;
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Crypt;
+use DB;
+
 
 class CategoriaController extends Controller
 {
@@ -24,7 +29,8 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = Categoria::paginate(5);
+        return view('categoria.create', compact('categorias'));
     }
 
     /**
@@ -35,7 +41,28 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try 
+        {
+        $newObject = new Categoria;
+        $newObject->nombre = $request->get('nombre');
+        if($newObject->save())
+        {
+            return back()->with('msj', 'Categoria Registrada');
+        }
+        else
+        if (!$newObject->save())
+        {
+            return back()->with('error', 'Datos no Guardados');    
+        }
+    }
+    catch(Exception $e)
+    {
+        $returnData = array(
+            'status'    => 500,
+            'message'   => $e->getMessage()
+        );
+        return Response($returnData, 500);
+    }
     }
 
     /**
@@ -55,9 +82,11 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria $categoria)
+    public function edit($id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $categoria = Categoria::find($id);
+        return view('categoria.edit', ['categoria' => $categoria]);
     }
 
     /**
@@ -67,9 +96,30 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, $id)
     {
-        //
+        try
+        {
+            $objectUpdate = Categoria::find($id);
+            $objectUpdate->nombre    = $request->get('nombre', $objectUpdate->nombre);
+            if($objectUpdate->save())
+            {
+                return back()->with('msj', 'Datos Editados');
+            }
+            else
+            if(!$objectUpdate->save())
+            {
+                return back()->with('error', 'Error al Editar');
+            }
+        }
+        catch(Exception $e)
+        {
+            $returnData  = array(
+                'status'    => 500,
+                'message'   => $e->getMessage()
+            );
+            return Response($returnData, 500);
+        }
     }
 
     /**
@@ -78,8 +128,11 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy($id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $categoria = Categoria::destroy($id);
+        return redirect()->route('categoria.create');
+        return back()->with('msj', 'Eliminado Exitosamente');
     }
 }

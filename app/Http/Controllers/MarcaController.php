@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Marca;
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Crypt;
+use DB;
 
 class MarcaController extends Controller
 {
@@ -24,7 +28,8 @@ class MarcaController extends Controller
      */
     public function create()
     {
-        //
+        $marcas = Marca::paginate(5);
+        return view('marca.create', compact('marcas'));
     }
 
     /**
@@ -35,7 +40,28 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try 
+        {
+        $newObject = new Marca;
+        $newObject->nombre = $request->get('nombre');
+        if($newObject->save())
+        {
+            return back()->with('msj', 'Marca Registrada');
+        }
+        else
+        if (!$newObject->save())
+        {
+            return back()->with('error', 'Datos no Guardados');    
+        }
+    }
+    catch(Exception $e)
+    {
+        $returnData = array(
+            'status'    => 500,
+            'message'   => $e->getMessage()
+        );
+        return Response($returnData, 500);
+    }
     }
 
     /**
@@ -55,9 +81,11 @@ class MarcaController extends Controller
      * @param  \App\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function edit(Marca $marca)
+    public function edit($id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $marca = Marca::find($id);
+        return view('marca.edit', ['marca' => $marca]);
     }
 
     /**
@@ -67,9 +95,30 @@ class MarcaController extends Controller
      * @param  \App\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Marca $marca)
+    public function update(Request $request, $id)
     {
-        //
+        try
+        {
+            $objectUpdate = Marca::find($id);
+            $objectUpdate->nombre    = $request->get('nombre', $objectUpdate->nombre);
+            if($objectUpdate->save())
+            {
+                return back()->with('msj', 'Datos Editados');
+            }
+            else
+            if(!$objectUpdate->save())
+            {
+                return back()->with('error', 'Error al Editar');
+            }
+        }
+        catch(Exception $e)
+        {
+            $returnData  = array(
+                'status'    => 500,
+                'message'   => $e->getMessage()
+            );
+            return Response($returnData, 500);
+        }
     }
 
     /**
@@ -78,8 +127,11 @@ class MarcaController extends Controller
      * @param  \App\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Marca $marca)
+    public function destroy($id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $marca = Marca::destroy($id);
+        return redirect()->route('marca.create');
+        return back()->with('msj', 'Eliminado Exitosamente');
     }
 }

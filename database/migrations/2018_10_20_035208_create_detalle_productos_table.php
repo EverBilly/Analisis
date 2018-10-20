@@ -26,6 +26,10 @@ class CreateDetalleProductosTable extends Migration
             $table->integer('salida')->unsigned()->nullable()->default(null);
             $table->foreign('salida')->references('id')->on('salidas')->onDelete('cascade');
 
+            $table->integer('producto')->unsigned()->nullable()->default(null);
+            $table->foreign('producto')->references('id')->on('productos')->onDelete('cascade');
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

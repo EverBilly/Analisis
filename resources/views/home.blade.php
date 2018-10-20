@@ -15,6 +15,10 @@
           <li><a href="{{ url('') }}"><span class="fa fa-files-o"></span> Inventario</a></li>
           <li><a href="{{ url('') }}"><span class="fa fa-truck"></span> Camiones</a></li>
           <li><a href="{{ url('rol/create') }}"><span class="fa fa-user-circle-o"></span> Roles</a></li>
+          <li><a href="{{ url('categoria/create') }}"><span class="fa fa-bookmark"></span> Categorias</a></li>
+          <li><a href="{{ url('marca/create') }}"><span class="fa fa-shopping-bag"></span> Marcas</a></li>
+          <li><a href="{{ url('medida/create') }}"><span class="fa fa-medium"></span> Medidas</a></li>
+          <li><a href="{{ url('entrada/create') }}"><span class="fa fa-medium"></span> Entradas</a></li>
           @endif
           <li><a href="#">Section</a></li>
           <li><a href="#">Section</a></li>

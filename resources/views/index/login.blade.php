@@ -7,6 +7,9 @@
     {!! Html::style('css/bootstrap.min.css') !!}
     {!! Html::style('css/menu.css') !!}
     {!! Html::style('css/font-awesome.min.css') !!}
+    {!! Html::style('css/pnotify.custom.min.css') !!}
+
+</head>
     <title>Inicio</title>
 </head>
 <body>
@@ -41,5 +44,6 @@
 
     {!! Html::script('js/jquery.min.js') !!}
     {!! Html::script('js/bootstrap.min.js') !!}
+    {!! Html::script('js/pnotify.custom.min.js') !!}
 </body>
 </html>

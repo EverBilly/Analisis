@@ -2,26 +2,25 @@
 @section('content')
 
 <div class="container">
-		      	<h3>Listado de Roles</h3>
+		      	<h3>Listado de Medidas</h3>
 	<table class="table table-hover tabla-usuarios">
 	      <thead  class="bg-primary">
-	        <th>Nombre</th>
+	        <th>Medida</th>
 	        <th>Opciones</th>
 	      </thead>
-	      @foreach($roles as $rol)
+	      @foreach($medidas as $medida)
 	      <tbody>
-	        <td>{{ $rol->nombre }}</td>
+	        <td>{{ $medida->medida }}</td>
 	        <td>
-	        	{!!link_to_route('rol.edit', $title = 'Editar', $parameters = Crypt::encrypt($rol->id), $attributes = ['class' => 'btn btn-warning'])!!}
+	        	{!!link_to_route('medida.edit', $title = 'Editar', $parameters = Crypt::encrypt($medida->id), $attributes = ['class' => 'btn btn-warning'])!!}
 	        </td>
 	      </tbody>
 	      @endforeach
 	    </table>
 	    <br>
+	    {!!$medidas->render()!!}
 	<!--Boton Para Abrir la modal de crear Usuarios-->
-	{!!Form::submit('Crear Rol', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#registrar'])!!}
-	<br>
-    {!!$roles->render()!!}
+	{!!Form::submit('Crear Medida', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#registrar'])!!}
 	<!--Inicio de la Modal para Crear Usuarios-->
 	<div class="modal fade" id="registrar" tabindex="-1" role="dialog" aria-labelledby="inicio" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -30,13 +29,13 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="inicio">Registro de Roles</h4>
+					<h4 class="modal-title" id="inicio">Registro de Medidas</h4>
 				</div>
 				<div class="modal-body">
-						{!! Form::open(array('url'=>'rol', 'method'=>'POST')) !!}
+						{!! Form::open(array('url'=>'medida', 'method'=>'POST')) !!}
 							<div class="form-group">
-								{!!Form::label('Nombre')!!}
-								{!!Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Ingrese El Nombre', 'required'])!!}
+								{!!Form::label('Medida')!!}
+								{!!Form::text('medida', null, ['class' => 'form-control', 'placeholder' => 'Ingrese La Medida', 'required'])!!}
 							</div>
 							<div class="modal-footer">
 							{!!Form::submit('Registrar', ['class' => 'btn btn-primary'])!!}
