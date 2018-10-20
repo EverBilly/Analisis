@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <h3>Menu Principal</h3>
         <ul class="nav nav-pills nav-stacked">
-        @if(Auth::user()->id == 1)
+        @if(Auth::user()->rol == 1)
           <li><a href="{{ url('usuario/create') }}"><span class="fa fa-user"></span> Usuarios</a></li>
           <li><a href="{{ url('producto/create') }}"><span class="fa fa-folder"></span> Productos</a></li>
           <li><a href="{{ url('') }}"><span class="fa fa-files-o"></span> Inventario</a></li>

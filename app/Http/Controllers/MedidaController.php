@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Medida;
 use Illuminate\Http\Request;
 
-class ProductoController extends Controller
+class MedidaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +24,7 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('producto/create');
+        //
     }
 
     /**
@@ -40,10 +41,10 @@ class ProductoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Medida  $medida
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Medida $medida)
     {
         //
     }
@@ -51,10 +52,10 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Medida  $medida
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Medida $medida)
     {
         //
     }
@@ -63,10 +64,10 @@ class ProductoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Medida  $medida
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Medida $medida)
     {
         //
     }
@@ -74,10 +75,10 @@ class ProductoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Medida  $medida
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Medida $medida)
     {
         //
     }

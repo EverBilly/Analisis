@@ -8,6 +8,7 @@
 	        <th>Nombre</th>
 	        <th>Apellido</th>
 	        <th>Telefono</th>
+	        <th>Email</th>
 	        <th>Rol</th>
 	        <th>Opciones</th>
 	      </thead>
@@ -16,6 +17,7 @@
 	        <td>{{ $usuario->nombre }}</td>
 	        <td>{{ $usuario->apellido }}</td>
 	        <td>{{ $usuario->telefono }}</td>
+	        <td>{{ $usuario->email }}</td>
 	        <td>{{ $usuario->rol }}</td>
 	        <td>
 	        	{!!link_to_route('usuario.edit', $title = 'Editar', $parameters = Crypt::encrypt($usuario->id), $attributes = ['class' => 'btn btn-warning'])!!}
@@ -51,6 +53,10 @@
 							<div class="form-group">
 								{!!Form::label('Telefono')!!}
 								{!!Form::text('telefono', null, ['class' => 'form-control', 'placeholder' => 'Ingrese El Telefono', 'required'])!!}
+							</div>
+							<div class="form-group">
+								{!!Form::label('Email')!!}
+								{!!Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Ingrese El Email', 'required'])!!}
 							</div>
 							<div class="form-group">
 								{!!Form::label('Password')!!}

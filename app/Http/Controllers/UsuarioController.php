@@ -55,6 +55,7 @@ class UsuarioController extends Controller
             $newObject->nombre    = $request->get('nombre');
             $newObject->apellido  = $request->get('apellido');
             $newObject->telefono  = $request->get('telefono');
+            $newObject->email     = $request->get('email');
             $newObject->password  = $request->get('password');
             $newObject->rol       = $request->get('rol');
             
