@@ -11,11 +11,7 @@ use DB;
 
 class RolController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         // $roles = Rol::all();
@@ -123,12 +119,6 @@ class RolController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Rol  $rol
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $id = Crypt::decrypt($id);

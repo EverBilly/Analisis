@@ -44,3 +44,7 @@ th
 {
   border: solid #DCDCDC;
 }
+a:link
+{
+  text-decoration: none;
+}

@@ -10,7 +10,7 @@
 	      </thead>
 	      @foreach($categorias as $categoria)
 	      <tbody>
-	        <td>{{ $categoria->nombre }}</td>
+	        <td>{{ $categoria->categoria }}</td>
 	        <td>
 	        	{!!link_to_route('categoria.edit', $title = 'Editar', $parameters = Crypt::encrypt($categoria->id), $attributes = ['class' => 'btn btn-warning'])!!}
 	        </td>
@@ -36,7 +36,7 @@
 						{!! Form::open(array('url'=>'categoria', 'method'=>'POST')) !!}
 							<div class="form-group">
 								{!!Form::label('Nombre')!!}
-								{!!Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Ingrese El Nombre', 'required'])!!}
+								{!!Form::text('categoria', null, ['class' => 'form-control', 'placeholder' => 'Ingrese El Nombre', 'required'])!!}
 							</div>
 
 							<div class="modal-footer">

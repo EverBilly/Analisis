@@ -16,6 +16,10 @@ Route::resource('marca', 'MarcaController');
 Route::resource('entrada', 'EntradaController');
 Route::resource('salida', 'SalidaController');
 Route::resource('detalleproducto', 'DetalleProductoController');
-
-
+Route::resource('pedido', 'PedidoController');
+Route::resource('detallepedido', 'DetallePedidoController');
+Route::resource('cliente', 'ClienteController');
+Route::resource('proveedor', 'ProveedorController');
+Route::resource('municipio', 'MunicipioController');
+Route::resource('departamento', 'DepartamentoController');
 Route::resource('log', 'LogController');

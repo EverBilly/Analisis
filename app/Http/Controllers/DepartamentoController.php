@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Entrada;
+use App\Departamento;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
+use Laracast\Flash\Flash;
+use Illuminate\Routing\Route;
 use DB;
 
-class EntradaController extends Controller
+class DepartamentoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +19,7 @@ class EntradaController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -28,8 +29,8 @@ class EntradaController extends Controller
      */
     public function create()
     {
-        $entradas = Entrada::paginate(5);
-        return view('entrada.create', compact('entradas'));
+        $departamentos = Departamento::all();
+        return view('departamento.create', compact('departamentos'));
     }
 
     /**
@@ -42,13 +43,11 @@ class EntradaController extends Controller
     {
         try 
         {
-        $newObject = new Entrada;
-        $newObject->fecha       = $request->get('fecha');
-        $newObject->descripcion = $request->get('descripcion');
-        $newObject->total       = $request->get('total');
+        $newObject = new Departamento;
+        $newObject->departamento = $request->get('departamento');
         if($newObject->save())
         {
-            return back()->with('msj', 'Entrada Registrado');
+            return back()->with('msj', 'Registrado');
         }
         else
         if (!$newObject->save())
@@ -69,10 +68,10 @@ class EntradaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Entrada  $entrada
+     * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function show(Entrada $entrada)
+    public function show(Departamento $departamento)
     {
         //
     }
@@ -80,62 +79,60 @@ class EntradaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Entrada  $entrada
+     * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Departamento $departamento)
     {
         $id = Crypt::decrypt($id);
-        $entrada = Entrada::find($id);
-        return view('entrada.edit', ['entrada' => $entrada]);
+        $departamento = Departamento::find($id);
+        return view('departamento.edit', compact('departamento'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Entrada  $entrada
+     * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        try
+                try 
         {
-            $objectUpdate = Entrada::find($id);
-            $objectUpdate->fecha       = $request->get('fecha');
-            $objectUpdate->descripcion = $request->get('descripcion');
-            $objectUpdate->total       = $request->get('total');
-            if($objectUpdate->save())
-            {
-                return back()->with('msj', 'Datos Editados');
-            }
-            else
-            if(!$objectUpdate->save())
-            {
-                return back()->with('error', 'Error al Editar');
-            }
-        }
-        catch(Exception $e)
+        $objectUpdate = new Departamento;
+        $objectUpdate->departamento = $request->get('departamento');
+        if($objectUpdate->save())
         {
-            $returnData  = array(
-                'status'    => 500,
-                'message'   => $e->getMessage()
-            );
-            return Response($returnData, 500);
+            return back()->with('msj', 'Registrado');
         }
+        else
+        if (!$objectUpdate->save())
+        {
+            return back()->with('error', 'Datos no Guardados');    
+        }
+    }
+    catch(Exception $e)
+    {
+        $returnData = array(
+            'status'    => 500,
+            'message'   => $e->getMessage()
+        );
+        return Response($returnData, 500);
+    }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Entrada  $entrada
+     * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Departamento $departamento)
     {
         $id = Crypt::decrypt($id);
-        $entrada = Entrada::destroy($id);
-        return redirect()->route('entrada.create');
+        $departamento = Departamento::destroy($id);
+        return redirect()->route('departamento.create');
         return back()->with('msj', 'Eliminado Exitosamente');
     }
 }

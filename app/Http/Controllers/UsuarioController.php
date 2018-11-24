@@ -101,7 +101,7 @@ class UsuarioController extends Controller
     {
         $id = Crypt::decrypt($id);
         $usuario = Usuario::find($id);
-        return view('usuario.edit', ['usuario' => $usuario]);
+        return view('usuario.edit', compact('usuario'));
     }
 
     /**

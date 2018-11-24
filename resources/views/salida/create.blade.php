@@ -2,26 +2,29 @@
 @section('content')
 
 <div class="container">
-		      	<h3>Listado de Categorias</h3>
+		      	<h3>Listado de Salidas</h3>
 	<table class="table table-hover tabla-usuarios">
 	      <thead  class="bg-primary">
-	        <th>Nombre</th>
+	        <th>Fecha</th>
+	        <th>Descripcion</th>
+	        <th>Total</th>
 	        <th>Opciones</th>
 	      </thead>
-	      @foreach($categorias as $categoria)
+	      @foreach($salidas as $salida)
 	      <tbody>
-	        <td>{{ $categoria->nombre }}</td>
+	        <td>{{ $salida->fecha }}</td>
+	        <td>{{ $salida->descripcion }}</td>
+	        <td>{{ $salida->total }}</td>
 	        <td>
-	        	{!!link_to_route('categoria.edit', $title = 'Editar', $parameters = Crypt::encrypt($categoria->id), $attributes = ['class' => 'btn btn-warning'])!!}
+	        	{!!link_to_route('salida.edit', $title = 'Editar', $parameters = Crypt::encrypt($salida->id), $attributes = ['class' => 'btn btn-warning'])!!}
 	        </td>
 	      </tbody>
 	      @endforeach
 	    </table>
 	    <br>
 	<!--Boton Para Abrir la modal de crear Usuarios-->
-	{!!Form::submit('Crear Categoria', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#registrar'])!!}
+	{!!Form::submit('Crear salida', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#registrar'])!!}
 	<br>
-    {!!$categorias->render()!!}
 	<!--Inicio de la Modal para Crear Usuarios-->
 	<div class="modal fade" id="registrar" tabindex="-1" role="dialog" aria-labelledby="inicio" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -30,13 +33,17 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="inicio">Registro de Categorias</h4>
+					<h4 class="modal-title" id="inicio">Registro de Salidas</h4>
 				</div>
 				<div class="modal-body">
-						{!! Form::open(array('url'=>'categoria', 'method'=>'POST')) !!}
+						{!! Form::open(array('url'=>'salida', 'method'=>'POST')) !!}
 							<div class="form-group">
-								{!!Form::label('Nombre')!!}
-								{!!Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Ingrese El Nombre', ])!!}
+								{!!Form::label('Fecha')!!}
+								{!!Form::date('fecha', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la Fecha'])!!}
+								{!!Form::label('descripcion')!!}
+								{!!Form::text('descripcion', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la Descripcion'])!!}
+								{!!Form::label('total')!!}
+								{!!Form::text('total', null, ['class' => 'form-control', 'placeholder' => 'Ingrese El Total'])!!}
 							</div>
 
 							<div class="modal-footer">

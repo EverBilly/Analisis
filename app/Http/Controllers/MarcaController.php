@@ -43,7 +43,7 @@ class MarcaController extends Controller
         try 
         {
         $newObject = new Marca;
-        $newObject->nombre = $request->get('nombre');
+        $newObject->marca = $request->get('marca');
         if($newObject->save())
         {
             return back()->with('msj', 'Marca Registrada');
@@ -100,7 +100,7 @@ class MarcaController extends Controller
         try
         {
             $objectUpdate = Marca::find($id);
-            $objectUpdate->nombre    = $request->get('nombre', $objectUpdate->nombre);
+            $objectUpdate->marca    = $request->get('marca', $objectUpdate->marca);
             if($objectUpdate->save())
             {
                 return back()->with('msj', 'Datos Editados');

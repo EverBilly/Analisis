@@ -44,7 +44,7 @@ class CategoriaController extends Controller
         try 
         {
         $newObject = new Categoria;
-        $newObject->nombre = $request->get('nombre');
+        $newObject->categoria = $request->get('categoria');
         if($newObject->save())
         {
             return back()->with('msj', 'Categoria Registrada');
@@ -101,7 +101,7 @@ class CategoriaController extends Controller
         try
         {
             $objectUpdate = Categoria::find($id);
-            $objectUpdate->nombre    = $request->get('nombre', $objectUpdate->nombre);
+            $objectUpdate->categoria    = $request->get('categoria', $objectUpdate->categoria);
             if($objectUpdate->save())
             {
                 return back()->with('msj', 'Datos Editados');
